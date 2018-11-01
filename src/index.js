@@ -19,15 +19,7 @@ function forEach(array, fn) {
  Посмотрите как работает map и повторите это поведение для массива, который будет передан в параметре array
  */
 
-/*function arrMulty(value) {
-    if (typeof(value) == "number") {
-        return value * 2;
 
-    }
-    return false;
-}
-
-var testArr = [1, 2, 3, 4, 5, 6];*/
 
 function map(array, fn) {
     var new_array = [];
@@ -38,26 +30,7 @@ function map(array, fn) {
     return new_array;
 }
 
-/*
-var a = ['2','1', 'yuio', '5'];
 
-var b = [];
-
-for (var i = 0; i < a.length; i++) {
-    b.push(
-        parseInt(a[i])
-    )
-}*/
-
-
-
-    /*
-    var new_array = Array(array.length);
-    for (let i = 0; i < array.length; i++) {
-        new_array[i] = fn(array[i], i, array);
-    }
-    return new_array;
-    */
 
 /*
  Задание 3:
@@ -84,21 +57,6 @@ function reduce(array, fn, initial) {
     return accumulator;
 }
 
-/*function sum(a, b) {
-    return a + b;
-}
-
-var arr = [1, 5, 7];
-
-var reduce_result = reduce(arr, sum);*/
-
-// var array = [1, 2, 3, 4];
-//
-// var sum = 0;
-// for (var i = 0; i < array.length; i++) {
-//     sum += array[i];
-// }
-//
 
 
 
