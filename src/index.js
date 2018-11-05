@@ -30,21 +30,12 @@ function isAllTrue(array, fn) {
     }
 
     for (var i = 0; i < array.length; i++) {
-        // var a = fn(array[i]);
-        // if (a == false) {
-        // if (!a) {
         if (!fn(array[i])) {
             return false;
         }
     }
     return true;
 }
-
-// if (a == true)
-// if (a)
-
-// if (a == false)
-// if (!a)
 
 /*
  Задание 2:
@@ -137,7 +128,58 @@ returnBadArguments(nums_and_strings, 34, 4, 'abc', [1, 2, 3], function() {}, 100
    - number не является числом (с текстом "number is not a number")
    - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
-function calculator() {
+function calculator(number) {
+    if (arguments.length == 0) {
+        number = 0;
+    }
+
+    if (typeof number != 'number') {
+        throw new TypeError('number is not a number');
+    }
+
+    function check_number(n) {
+        if (typeof n != 'number') {
+            throw new TypeError('Все аргументы должны быть числовыми.');
+        }
+    }
+
+    return {
+        'sum': function() {
+            var a = number;
+            for (var i = 0; i < arguments.length; ++i) {
+                check_number(arguments[i]);
+                a += arguments[i];
+            }
+            return a;
+        },
+        'dif': function() {
+            var a = number;
+            for (var i = 0; i < arguments.length; ++i) {
+                check_number(arguments[i]);
+                a -= arguments[i];
+            }
+            return a;
+        },
+        'div': function() {
+            var a = number;
+            for (var i = 0; i < arguments.length; ++i) {
+                check_number(arguments[i]);
+                if (arguments[i] === 0) {
+                    throw new TypeError('Среди аргументов не должно быть нуля.');
+                }
+                a /= arguments[i];
+            }
+            return a;
+        },
+        'mul': function() {
+            var a = number;
+            for (var i = 0; i < arguments.length; ++i) {
+                check_number(arguments[i]);
+                a *= arguments[i];
+            }
+            return a;
+        }
+    };
 }
 
 /* При решении задач, пострайтесь использовать отладчик */
