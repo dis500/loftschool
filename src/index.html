@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <div>
+            <p>ываыва
+                <span>вапвап</span>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        var body = document.body;
+
+        for (var node of body.childNodes) {
+            console.log(node.firstElementChild);
+        }
+
+
+
+/*        var body = document.body;
+        var result = [];
+
+        for (var i = 0; i < body.children.length - 1; i++) {
+            if (body.children[i].nextElementSibling.tagName === 'P') {
+                result.push(body.children[i]);
+            }
+        }
+        console.log(result);*/
+    </script>
+</body>
+</html>
