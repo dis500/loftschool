@@ -5,32 +5,18 @@
     <title>Title</title>
 </head>
 <body>
-    <div>
-        <div>
-            <p>ываыва
-                <span>вапвап</span>
-            </p>
-        </div>
-    </div>
+<div>
+    <button>Кнопка1</button>
+    <button>Кнопка2</button>
+    <button>Кнопка3</button>
+</div>
 
-    <script>
-        var body = document.body;
+<script>
+    var myButton = document.getElementsByTagName('BUTTON');
 
-        for (var node of body.childNodes) {
-            console.log(node.firstElementChild);
-        }
-
-
-
-/*        var body = document.body;
-        var result = [];
-
-        for (var i = 0; i < body.children.length - 1; i++) {
-            if (body.children[i].nextElementSibling.tagName === 'P') {
-                result.push(body.children[i]);
-            }
-        }
-        console.log(result);*/
-    </script>
+    myButton.addEventListener('click', function () {
+        console.log('кликнули на кнопку');
+    });
+</script>
 </body>
 </html>
