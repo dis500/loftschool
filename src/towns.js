@@ -29,7 +29,7 @@
    homeworkContainer.appendChild(newDiv);
  */
 const homeworkContainer = document.querySelector('#homework-container');
-
+var towns = [];
 /*
  Функция должна вернуть Promise, который должен быть разрешен с массивом городов в качестве значения
 
@@ -37,8 +37,30 @@ const homeworkContainer = document.querySelector('#homework-container');
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
 function loadTowns() {
+    return new Promise((resolve) => {
+        const xhr = new XMLHttpRequest();
+
+        xhr.open('GET', 'https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json');
+        xhr.responseType = 'json';
+        xhr.send();
+        xhr.addEventListener('load', () => {
+            let towns = xhr.response;
+            towns.sort(function (a, b) {
+                if (a.name > b.name) {
+                    return 1;
+                }
+                if (a.name < b.name) {
+                    return -1;
+                }
+
+                return 0;
+            });
+            resolve(towns);
+        });
+    });
 }
 
+const promise = loadTowns();
 /*
  Функция должна проверять встречается ли подстрока chunk в строке full
  Проверка должна происходить без учета регистра символов
@@ -51,10 +73,27 @@ function loadTowns() {
    isMatching('Moscow', 'Moscov') // false
  */
 function isMatching(full, chunk) {
+    return full.toLowerCase().indexOf(chunk.toLowerCase()) > -1;
+/*    let full2 = full.toLowerCase();
+    let chunk2 = chunk.toLowerCase();
+    return full2.indexOf(chunk2);*/
 }
 
 /* Блок с надписью "Загрузка" */
 const loadingBlock = homeworkContainer.querySelector('#loading-block');
+promise
+    .then(cities => {
+        loadingBlock.style.display = 'none';
+        filterBlock.style.display = '';
+        towns = cities;
+    });
+
+
+/*    .then(() => loadingBlock.style.display = 'none')
+    .then(() => filterBlock.style.display = '')
+    .then(() => towns = cities)
+    .then(() => console.log(towns));*/
+console.log(towns);
 /* Блок с текстовым полем и результатом поиска */
 const filterBlock = homeworkContainer.querySelector('#filter-block');
 /* Текстовое поле для поиска по городам */
@@ -62,8 +101,31 @@ const filterInput = homeworkContainer.querySelector('#filter-input');
 /* Блок с результатами поиска */
 const filterResult = homeworkContainer.querySelector('#filter-result');
 
+function townsRender(city) {
+        let li = document.createElement('li');
+        li.classList.add('filter-city');
+        li.textContent = city.name;
+        filterResult.appendChild(li);
+        return li;
+}
+
 filterInput.addEventListener('keyup', function() {
     // это обработчик нажатия кливиш в текстовом поле
+    let value = filterInput.value;
+    const filteredCities = towns.filter(city => isMatching(city.name, value));
+
+    filterResult.innerHTML = '';
+
+    if (!value) {
+        for (let i = 0; i < towns.length; i++) {
+            townsRender(towns[i]);
+        }
+    }
+
+    for (let i = 0; i < filteredCities.length; i++) {
+        townsRender(filteredCities[i]);
+    }
+
 });
 
 export {
